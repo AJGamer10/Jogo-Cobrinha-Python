@@ -19,16 +19,6 @@ class Snake:
     def mover(self):
         self.x_cobra += self.delta_x
         self.y_cobra += self.delta_y
-        
-        if self.x_cobra >= self.largura:
-            self.x_cobra = 80
-        elif self.x_cobra < 80:
-            self.x_cobra = self.largura - self.tamanho
-
-        if self.y_cobra >= self.altura:
-            self.y_cobra = 80
-        elif self.y_cobra < 80:
-            self.y_cobra = self.altura - self.tamanho
 
         cabeca_cobra = (self.x_cobra, self.y_cobra)
         self.lista_cobra.append(cabeca_cobra)
@@ -40,7 +30,7 @@ class Snake:
         # Verifica se a cobra já se moveu pelo menos um quadrado
         if len(self.lista_cobra) > 1:
             # Adiciona um intervalo mínimo entre as mudanças de direção
-            if time.time() - self.ultimo_movimento < 0.1:
+            if time.time() - self.ultimo_movimento < 0.05:
                 return
             
             if event.type == pygame.KEYDOWN:
@@ -60,7 +50,7 @@ class Snake:
             # Atualiza o tempo da última mudança de direção
             self.ultimo_movimento = time.time()
             
-    def verificar_colisao_comida(self, food):
+    def verificar_colisao_comida(self, food):        
         cabeca_cobra = pygame.Rect(self.x_cobra, self.y_cobra, self.tamanho, self.tamanho)
         comida = pygame.Rect(food.x_comida, food.y_comida, food.tamanho, food.tamanho)
 
@@ -69,12 +59,19 @@ class Snake:
             self.comprimento += 1
     
     def verificar_colisao(self):
-        cabeca_cobra = pygame.Rect(self.x_cobra, self.y_cobra, self.tamanho, self.tamanho)
+        cabeca_cobra = pygame.Rect(
+        self.x_cobra,
+        self.y_cobra,
+        self.tamanho,
+        self.tamanho
+        )
         
         # Verificar colisão com as bordas
         if (
-            self.x_cobra <= 80 or self.x_cobra >= self.largura - self.tamanho or
-            self.y_cobra <= 80 or self.y_cobra >= self.altura - self.tamanho
+            self.x_cobra < 80 or
+            self.x_cobra >= self.largura or
+            self.y_cobra < 80 or
+            self.y_cobra >= self.altura
         ):
             self.game_over = True
         
