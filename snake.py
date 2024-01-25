@@ -30,7 +30,7 @@ class Snake:
         # Verifica se a cobra já se moveu pelo menos um quadrado
         if len(self.lista_cobra) > 1:
             # Adiciona um intervalo mínimo entre as mudanças de direção
-            if time.time() - self.ultimo_movimento < 0.05:
+            if time.time() - self.ultimo_movimento < 0.01:
                 return
             
             if event.type == pygame.KEYDOWN:
