@@ -66,8 +66,8 @@ class Snake:
         
         # Verificar colisão com as bordas
         if (
-            self.x_cobra <= 80 or self.x_cobra >= self.largura - self.tamanho or
-            self.y_cobra <= 80 or self.y_cobra >= self.altura - self.tamanho
+            self.x_cobra < 80 or self.x_cobra >= self.largura - self.tamanho or
+            self.y_cobra < 80 or self.y_cobra >= self.altura - self.tamanho
         ):
             self.game_over = True
         

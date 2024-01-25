@@ -29,9 +29,9 @@ def mostrar_pontuacao(pontuacao):
     tela.blit(texto, [20, 20])
     
 def game_over(result, pontuacao):
-    cor_clara = (152, 251, 152)  # Verde claro
-    cor_escura = (50, 205, 50)   # Verde escuro
-    borda = (20, 150, 20)
+    cor_clara = (251, 251, 251)  # Verde claro
+    cor_escura = (205, 205, 205)   # Verde escuro
+    borda = (150, 150, 150)
     tela.fill((0, 0, 0))
     
     while True:
@@ -119,9 +119,10 @@ def main():
                     quit()
         
         # Preencher a tela com um padrão xadrez de verde claro e escuro
-        cor_clara = (152, 251, 152)  # Verde claro
-        cor_escura = (50, 205, 50)   # Verde escuro
-        pygame.draw.rect(tela, (20, 150, 20), [70, 70, 660, 460])
+        cor_clara = (251, 251, 251)  # Verde claro
+        cor_escura = (205, 205, 205)   # Verde escuro
+        borda = (150, 150, 150)
+        pygame.draw.rect(tela, borda, [70, 70, 660, 460])
         for i in range(80, largura, 20):
             for j in range(80, altura, 20):
                 cor = cor_clara if (i + j) % 40 == 0 else cor_escura
