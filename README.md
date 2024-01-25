@@ -11,7 +11,10 @@ O objetivo é simples: controlar a cobrinha com as setas do teclado para que ela
 Para jogar, você precisa ter Python e Pygame instalados em seu computador.
 
 1. Clone este repositório em seu computador.
-2. Instale as dependências com 'pip install pygame'.
+2. Instale as dependências no terminal:
+```python
+pip install -r requirements.txt
+```
 3. Execute o arquivo 'main.py' para iniciar o jogo.
 
 ## Contribuições
