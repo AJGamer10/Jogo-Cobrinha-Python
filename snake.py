@@ -1,4 +1,5 @@
 import pygame
+import time
 
 class Snake:
     def __init__(self, largura, altura):
@@ -13,6 +14,7 @@ class Snake:
         self.y_cobra = 40 * 7
         self.lista_cobra = [(self.x_cobra, self.y_cobra)]
         self.game_over = False
+        self.ultimo_movimento = time.time()
         
     def mover(self):
         self.x_cobra += self.delta_x
@@ -33,25 +35,30 @@ class Snake:
 
         if len(self.lista_cobra) > self.comprimento:
             del self.lista_cobra[0]
-
-        for segmento in self.lista_cobra[:-1]:
-            if segmento == cabeca_cobra:
-                self.game_over = True
                 
     def mudar_direcao(self, event):
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT and self.delta_x == 0:
-                self.delta_x = -self.tamanho
-                self.delta_y = 0
-            elif event.key == pygame.K_RIGHT and self.delta_x == 0:
-                self.delta_x = self.tamanho
-                self.delta_y = 0
-            elif event.key == pygame.K_UP and self.delta_y == 0:
-                self.delta_y = -self.tamanho
-                self.delta_x = 0
-            elif event.key == pygame.K_DOWN and self.delta_y == 0:
-                self.delta_y = self.tamanho
-                self.delta_x = 0
+        # Verifica se a cobra já se moveu pelo menos um quadrado
+        if len(self.lista_cobra) > 1:
+            # Adiciona um intervalo mínimo entre as mudanças de direção
+            if time.time() - self.ultimo_movimento < 0.1:
+                return
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT and self.delta_x == 0:
+                    self.delta_x = -self.tamanho
+                    self.delta_y = 0
+                elif event.key == pygame.K_RIGHT and self.delta_x == 0:
+                    self.delta_x = self.tamanho
+                    self.delta_y = 0
+                elif event.key == pygame.K_UP and self.delta_y == 0:
+                    self.delta_y = -self.tamanho
+                    self.delta_x = 0
+                elif event.key == pygame.K_DOWN and self.delta_y == 0:
+                    self.delta_y = self.tamanho
+                    self.delta_x = 0
+                    
+            # Atualiza o tempo da última mudança de direção
+            self.ultimo_movimento = time.time()
             
     def verificar_colisao_comida(self, food):
         cabeca_cobra = pygame.Rect(self.x_cobra, self.y_cobra, self.tamanho, self.tamanho)
@@ -66,8 +73,8 @@ class Snake:
         
         # Verificar colisão com as bordas
         if (
-            self.x_cobra < 80 or self.x_cobra >= self.largura - self.tamanho or
-            self.y_cobra < 80 or self.y_cobra >= self.altura - self.tamanho
+            self.x_cobra <= 80 or self.x_cobra >= self.largura - self.tamanho or
+            self.y_cobra <= 80 or self.y_cobra >= self.altura - self.tamanho
         ):
             self.game_over = True
         

@@ -12,6 +12,7 @@ tela = pygame.display.set_mode((largura_tela, altura_tela))
 pygame.display.set_caption("Jogo da Cobrinha")
 
 relogio = pygame.time.Clock()
+ticks = 7
 fonte_small = pygame.font.SysFont(None, 20)
 fonte = pygame.font.SysFont(None, 30)
 fonte_titulo = pygame.font.SysFont(None, 50)
@@ -98,7 +99,7 @@ def game_over(result, pontuacao):
         tela.blit(out, texto_rect)
         
         pygame.display.update()
-        relogio.tick(10)
+        relogio.tick(ticks)
 
 def main():
     while True:
@@ -155,7 +156,7 @@ def main():
         tela.blit(sair, texto_rect)
 
         pygame.display.update()
-        relogio.tick(10)
+        relogio.tick(ticks)
     
 def jogo():
     snake = Snake(largura, altura)
@@ -191,7 +192,7 @@ def jogo():
         mostrar_pontuacao(snake.comprimento - 2)
         
         pygame.display.update()
-        relogio.tick(10)
+        relogio.tick(ticks)
     game_over("venceu" if largura * altura <= snake.comprimento else "perdeu", snake.comprimento)
     
 main()
